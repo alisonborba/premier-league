@@ -41,7 +41,7 @@ export const MatchList: React.FC<MatchListProps> = ({
 
   return (
     <div className={`match-list ${className}`.trim()}>
-      <h3 className="match-list-title">Match History</h3>
+      <h3 className="match-list-title">Match History ({matches.length})</h3>
       <div className="matches-container">
         {matches.map((match, index) => (
           <MatchRow

@@ -13,3 +13,8 @@ export const getClubImage = (code: string) => {
   const club = PREMIER_LEAGUE_CLUBS_2019_2020.find((club) => club.code === code);
   return club?.imgUrl;
 };
+
+export const getClubName = (code: string) => {
+  const club = PREMIER_LEAGUE_CLUBS_2019_2020.find((club) => club.code === code);
+  return club?.name || code;
+};
