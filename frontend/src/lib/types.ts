@@ -2,6 +2,7 @@ export interface Club {
   code: string;
   name: string;
   country?: string;
+  imgUrl?: string;
 }
 
 // Score can be either direct array or object with ft property

@@ -270,15 +270,21 @@ body {
 }
 
 .club-link {
-  color: #007bff;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s;
+  display: flex;
 }
 
 .club-link:hover {
   color: #0056b3;
   text-decoration: underline;
+}
+
+.club-logo {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
 }
 
 /* Form pills */

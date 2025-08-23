@@ -12,11 +12,12 @@ import { useMatches } from '../../app/providers/MatchesProvider';
 
 export const LeagueTable = () => {
   const {
-    state: { seasonFinished, error, status },
+    state: { seasonFinished, error },
     reconnect,
   } = useMatches();
   const { clubsMap, isLoading: clubsLoading, error: clubsError } = useClubsMap();
   const { tableRows, totalMatches } = useStandings(clubsMap);
+  console.log('totalMatches', totalMatches);
 
   const isLoading = clubsLoading && tableRows.length === 0;
   const hasError = error || clubsError;
