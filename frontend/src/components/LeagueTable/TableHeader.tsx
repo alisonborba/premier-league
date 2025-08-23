@@ -9,7 +9,6 @@ export const TableHeader: React.FC = () => {
         <th scope="col" className="table-header table-header--club">
           Club
         </th>
-        <th scope="col" className="table-header table-header--club"></th>
         <th scope="col" className="table-header table-header--played">
           MP
         </th>

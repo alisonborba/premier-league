@@ -295,15 +295,10 @@ body {
   color: white;
 }
 
-.club-link:hover {
-  color: #64b5f6;
-  text-decoration: underline;
-}
-
 .club-logo {
   width: 24px;
   height: 24px;
-  margin-right: 5px;
+  margin: 0 8px;
 }
 
 /* Form pills */

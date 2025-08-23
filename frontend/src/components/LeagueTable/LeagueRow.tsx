@@ -28,13 +28,13 @@ export const LeagueRow: React.FC<LeagueRowProps> = ({ row, className = '' }) => 
 
   return (
     <tr className={`table-row ${getPositionClass(row.position)} ${className}`.trim()}>
-      <td className="table-cell table-cell--position">{row.position}</td>
       <td className="table-cell table-cell--club">
         <Link
           to={`/team/${row.code}`}
           className="club-link"
           aria-label={`View ${row.name} history`}
         >
+          {row.position}
           <img src={getClubImage(row.code)} alt={row.name} className="club-logo" />
           {row.name}
         </Link>
