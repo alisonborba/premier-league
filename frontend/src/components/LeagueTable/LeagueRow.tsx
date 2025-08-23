@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { TableRow } from '../../lib/types';
 import { FormPills } from './FormPills';
 import { formatGoalDifference } from '../../lib/format';
-import { PREMIER_LEAGUE_CLUBS_2019_2020 } from '../../lib/constants';
+import { getClubImage } from '../../lib/utils';
 
 interface LeagueRowProps {
   row: TableRow & { position: number };
@@ -19,11 +19,6 @@ export const LeagueRow: React.FC<LeagueRowProps> = ({ row, className = '' }) => 
     if (position <= 6) return 'table-row--europa-qualifiers';
     if (position >= 18) return 'table-row--relegation';
     return '';
-  };
-
-  const getClubImage = (code: string) => {
-    const club = PREMIER_LEAGUE_CLUBS_2019_2020.find((club) => club.code === code);
-    return club?.imgUrl;
   };
 
   return (

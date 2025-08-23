@@ -1,75 +1,102 @@
+/** @format */
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { TeamHistory } from '../../lib/types';
 import { formatGoalDifference } from '../../lib/format';
+import { getClubImage } from '../../lib/utils';
+import {
+  CircleChevronLeft,
+  Check,
+  Minus,
+  X,
+  TrendingUp,
+  TrendingDown,
+  Target,
+  Hash,
+} from 'lucide-react';
 
 interface TeamHeaderProps {
   teamHistory: TeamHistory;
   className?: string;
 }
 
-export const TeamHeader: React.FC<TeamHeaderProps> = ({ 
-  teamHistory, 
-  className = '' 
-}) => {
+export const TeamHeader: React.FC<TeamHeaderProps> = ({ teamHistory, className = '' }) => {
   const { club, summary } = teamHistory;
 
   return (
     <header className={`team-header ${className}`.trim()}>
       <div className="team-header-content">
+        <Link to="/" className="back-link">
+          <CircleChevronLeft size={32} />
+        </Link>
         <div className="team-info">
-          <Link to="/" className="back-link">
-            ← Back to Table
-          </Link>
-          
+          <img src={getClubImage(club.code)} alt={club.name} className="team-logo" />
           <h1 className="team-name">{club.name}</h1>
-          
-          {club.country && (
-            <p className="team-country">{club.country}</p>
-          )}
-          
-          <p className="team-code">Code: {club.code}</p>
         </div>
-        
+
         <div className="team-stats">
-          <div className="stat-card">
+          {/* Points - Destaque principal */}
+          <div className="stat-card stat-card--points stat-card--main">
+            <div className="stat-main">
+              <span className="stat-value">{summary.points}</span>
+              <span className="stat-label">Points</span>
+            </div>
+          </div>
+
+          {/* Matches played - Menos destacado */}
+          <div className="stat-card stat-card--played">
+            <Hash size={16} />
             <span className="stat-value">{summary.played}</span>
             <span className="stat-label">Played</span>
           </div>
-          
-          <div className="stat-card stat-card--wins">
-            <span className="stat-value">{summary.wins}</span>
-            <span className="stat-label">Wins</span>
+
+          {/* Form results - Wins, Draws, Losses */}
+          <div className="stat-card stat-card--form">
+            <div className="form-summary">
+              <div className="form-item">
+                <span className="form-pill form-pill--win">
+                  <Check size={12} strokeWidth={3} />
+                </span>
+                <span className="form-count">{summary.wins}</span>
+                <span className="form-label">Wins</span>
+              </div>
+              <div className="form-item">
+                <span className="form-pill form-pill--draw">
+                  <Minus size={12} strokeWidth={3} />
+                </span>
+                <span className="form-count">{summary.draws}</span>
+                <span className="form-label">Draws</span>
+              </div>
+              <div className="form-item">
+                <span className="form-pill form-pill--loss">
+                  <X size={12} strokeWidth={3} />
+                </span>
+                <span className="form-count">{summary.losses}</span>
+                <span className="form-label">Losses</span>
+              </div>
+            </div>
           </div>
-          
-          <div className="stat-card stat-card--draws">
-            <span className="stat-value">{summary.draws}</span>
-            <span className="stat-label">Draws</span>
-          </div>
-          
-          <div className="stat-card stat-card--losses">
-            <span className="stat-value">{summary.losses}</span>
-            <span className="stat-label">Losses</span>
-          </div>
-          
-          <div className="stat-card">
-            <span className="stat-value">{summary.gf}</span>
-            <span className="stat-label">Goals For</span>
-          </div>
-          
-          <div className="stat-card">
-            <span className="stat-value">{summary.ga}</span>
-            <span className="stat-label">Goals Against</span>
-          </div>
-          
-          <div className="stat-card">
-            <span className="stat-value">{formatGoalDifference(summary.gd)}</span>
-            <span className="stat-label">Goal Difference</span>
-          </div>
-          
-          <div className="stat-card stat-card--points">
-            <span className="stat-value">{summary.points}</span>
-            <span className="stat-label">Points</span>
+
+          {/* Goals summary */}
+          <div className="stat-card stat-card--goals">
+            <div className="goals-summary">
+              <div className="goals-item goals-item--for">
+                <TrendingUp size={16} />
+                <span className="goals-value">{summary.gf}</span>
+                <span className="goals-label">For</span>
+              </div>
+              <div className="goals-item goals-item--against">
+                <Target size={16} />
+                <span className="goals-value">{summary.ga}</span>
+                <span className="goals-label">Against</span>
+              </div>
+              <div className="goals-item goals-item--difference">
+                <TrendingDown size={16} />
+                <span className="goals-value">{formatGoalDifference(summary.gd)}</span>
+                <span className="goals-label">Diff</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

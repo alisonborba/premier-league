@@ -18,18 +18,19 @@ export const MatchRow = ({ match, teamCode, className = '' }: MatchRowProps) => 
   const opponentCode = isHome ? match.away : match.home;
   const opponentName = opponentCode; // Will be enriched by hook
 
+  const teamName = isHome ? teamCode : opponentName;
+
   return (
     <div className={`match-row ${className}`.trim()}>
-      <div className="match-date">{formatDate(match.date)}</div>
-
       <div className="match-info">
-        <div className="match-teams">
-          <span className="team-name team-name--current">{isHome ? teamCode : opponentName}</span>
-          <span className="match-score">{formatScore(match.score)}</span>
-          <span className="team-name team-name--opponent">{isHome ? opponentName : teamCode}</span>
+        <div className="match-competition">
+          {match.competition} - {match.round} ({formatDate(match.date)})
         </div>
-
-        <div className="match-competition">{match.competition || 'Premier League'}</div>
+        <div className="match-teams">
+          <div className="team-name">{isHome ? teamCode : opponentName}</div>
+          <div className="match-score">{formatScore(match.score)}</div>
+          <div className="team-name">{isHome ? opponentName : teamCode}</div>
+        </div>
       </div>
     </div>
   );
