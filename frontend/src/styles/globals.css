@@ -14,6 +14,10 @@ body {
   background-color: #1f1f1f;
   color: white;
   line-height: 1.6;
+  --champions-league-color: #4285F4;
+  --europa-league-color: #FA7B17;
+  --europa-qualifiers-color: #34a853;
+  --relegation-color: #EA4335;
 }
 
 .app {
@@ -255,19 +259,19 @@ body {
 }
 
 .table-row--champions-league {
-  border-left: 3px solid #4285F4;
+  border-left: 3px solid var(--champions-league-color);
 }
 
 .table-row--europa-league {
-  border-left: 3px solid #FA7B17;
+  border-left: 3px solid var(--europa-league-color);
 }
 
 .table-row--europa-qualifiers {
-  border-left: 3px solid #34a853;
+  border-left: 3px solid var(--europa-qualifiers-color);
 }
 
 .table-row--relegation {
-  border-left: 3px solid #EA4335;
+  border-left: 3px solid var(--relegation-color);
 }
 
 .table-cell {
@@ -309,15 +313,13 @@ body {
 }
 
 .form-pill {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
+  font-size: 12px;
   border-radius: 50%;
-  text-align: center;
-  line-height: 20px;
-  font-size: 0.75rem;
-  font-weight: bold;
-  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .form-pill--win {
@@ -335,11 +337,15 @@ body {
 
 /* Table legend */
 .table-legend {
-  margin-top: 2rem;
+  margin: 5px;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #434548;
   display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
+}
+.table-legend > div {
+  width: 100%;
 }
 
 .legend-item {
@@ -349,21 +355,24 @@ body {
 }
 
 .legend-color {
-  width: 16px;
-  height: 16px;
-  border-radius: 4px;
+  width: 12px;
+  height: 12px;
 }
 
 .legend-color--champions {
-  background-color: #1b5e20;
+  background-color: var(--champions-league-color);
 }
 
-.legend-color--europa {
-  background-color: #f57c00;
+.legend-color--europa-league {
+  background-color: var(--europa-league-color);
+}
+
+.legend-color--europa-qualifiers {
+  background-color: var(--europa-qualifiers-color);
 }
 
 .legend-color--relegation {
-  background-color: #c62828;
+  background-color: var(--relegation-color);
 }
 
 /* Team page styles */

@@ -9,6 +9,7 @@ import { InfoBanner } from '../UI/InfoBanner';
 import { useStandings } from '../../hooks/useStandings';
 import { useClubsMap } from '../../hooks/useClubs';
 import { useMatches } from '../../app/providers/MatchesProvider';
+import { Check, Minus, X } from 'lucide-react';
 
 export const LeagueTable = () => {
   const {
@@ -40,7 +41,7 @@ export const LeagueTable = () => {
 
         {seasonFinished && (
           <InfoBanner
-            message="The 2019/2020 season has finished!"
+            message="The Premier League 2019/2020 season has finished!"
             type="success"
             actionLabel="View Final Table"
           />
@@ -58,6 +59,7 @@ export const LeagueTable = () => {
             ))}
           </tbody>
         </table>
+        <Legend />
       </div>
 
       {!isLoading && tableRows.length === 0 && (
@@ -65,19 +67,51 @@ export const LeagueTable = () => {
           <p>No matches found. Waiting for WebSocket data...</p>
         </div>
       )}
+    </div>
+  );
+};
 
-      <div className="table-legend">
+export const Legend = () => {
+  return (
+    <div className="table-legend">
+      <div>
+        <h4>Qualification/Relegation</h4>
         <div className="legend-item">
           <span className="legend-color legend-color--champions"></span>
-          <span>Champions League (1st-4th)</span>
+          <span>UEFA Champions League group stage</span>
         </div>
         <div className="legend-item">
-          <span className="legend-color legend-color--europa"></span>
-          <span>Europa League (5th-6th)</span>
+          <span className="legend-color legend-color--europa-league"></span>
+          <span>Europa League group stage</span>
+        </div>
+        <div className="legend-item">
+          <span className="legend-color legend-color--europa-qualifiers"></span>
+          <span>Europa League qualifiers</span>
         </div>
         <div className="legend-item">
           <span className="legend-color legend-color--relegation"></span>
-          <span>Relegation (18th-20th)</span>
+          <span>Relegation</span>
+        </div>
+      </div>
+      <div>
+        <h4>Last 5 matches</h4>
+        <div className="legend-item">
+          <span className="form-pill form-pill--win">
+            <Check size={12} strokeWidth={3} />
+          </span>{' '}
+          Win
+        </div>
+        <div className="legend-item">
+          <span className="form-pill form-pill--draw">
+            <Minus size={12} strokeWidth={3} />
+          </span>{' '}
+          Draw
+        </div>
+        <div className="legend-item">
+          <span className="form-pill form-pill--loss">
+            <X size={12} strokeWidth={3} />
+          </span>{' '}
+          Loss
         </div>
       </div>
     </div>

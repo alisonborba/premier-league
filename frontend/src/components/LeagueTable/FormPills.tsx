@@ -1,7 +1,7 @@
 /** @format */
 
 import React from 'react';
-import { formatForm } from '../../lib/format';
+import { Check, Minus, X } from 'lucide-react';
 
 interface FormPillsProps {
   form: Array<'W' | 'D' | 'L'>;
@@ -22,27 +22,14 @@ export const FormPills: React.FC<FormPillsProps> = ({ form, className = '' }) =>
     }
   };
 
-  const getResultLabel = (result: 'W' | 'D' | 'L') => {
-    switch (result) {
-      case 'W':
-        return 'Win';
-      case 'D':
-        return 'Draw';
-      case 'L':
-        return 'Loss';
-      default:
-        return '';
-    }
-  };
-
   const getResult = (result: 'W' | 'D' | 'L') => {
     switch (result) {
       case 'W':
-        return '✓';
+        return <Check size={12} strokeWidth={3} />;
       case 'D':
-        return '-';
+        return <Minus size={12} strokeWidth={3} />;
       case 'L':
-        return 'x';
+        return <X size={12} strokeWidth={3} />;
       default:
         return '';
     }
@@ -51,12 +38,7 @@ export const FormPills: React.FC<FormPillsProps> = ({ form, className = '' }) =>
   return (
     <div className={`form-pills ${className}`.trim()}>
       {form.map((result, index) => (
-        <span
-          key={index}
-          className={`form-pill ${getResultClass(result)}`}
-          title={getResultLabel(result)}
-          aria-label={`${getResultLabel(result)} in match ${index + 1}`}
-        >
+        <span key={index} className={`form-pill ${getResultClass(result)}`}>
           {getResult(result)}
         </span>
       ))}

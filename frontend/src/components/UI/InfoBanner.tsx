@@ -1,4 +1,7 @@
+/** @format */
+
 import React from 'react';
+import { CircleCheck, CircleAlert, Info } from 'lucide-react';
 
 interface InfoBannerProps {
   message: string;
@@ -7,17 +10,20 @@ interface InfoBannerProps {
   actionLabel?: string;
 }
 
-export const InfoBanner: React.FC<InfoBannerProps> = ({ 
-  message, 
+export const InfoBanner: React.FC<InfoBannerProps> = ({
+  message,
   type = 'info',
   onAction,
-  actionLabel 
+  actionLabel,
 }) => {
   const getIcon = () => {
     switch (type) {
-      case 'success': return '✅';
-      case 'warning': return '⚠️';
-      default: return 'ℹ️';
+      case 'success':
+        return <CircleCheck size={24} />;
+      case 'warning':
+        return <CircleAlert size={24} />;
+      default:
+        return <Info size={24} />;
     }
   };
 
@@ -28,14 +34,10 @@ export const InfoBanner: React.FC<InfoBannerProps> = ({
   return (
     <div className={getClassName()}>
       <div className="info-content">
-        <span className="info-icon">{getIcon()}</span>
+        {getIcon()}
         <span className="info-message">{message}</span>
         {onAction && actionLabel && (
-          <button 
-            onClick={onAction}
-            className="info-action-btn"
-            type="button"
-          >
+          <button onClick={onAction} className="info-action-btn" type="button">
             {actionLabel}
           </button>
         )}
