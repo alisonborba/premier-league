@@ -486,25 +486,6 @@ body {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.match-row--win {
-  background-color: #e8f5e8;
-  border-color: #28a745;
-}
-
-.match-row--draw {
-  background-color: #fff3cd;
-  border-color: #ffc107;
-}
-
-.match-row--loss {
-  background-color: #f8d7da;
-  border-color: #dc3545;
-}
-
-.match-row--even {
-  background-color: #f8f9fa;
-}
-
 .match-date {
   min-width: 100px;
   font-weight: 500;

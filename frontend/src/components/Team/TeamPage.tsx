@@ -7,16 +7,17 @@ import { MatchList } from './MatchList';
 import { Spinner } from '../UI/Spinner';
 import { ErrorBanner } from '../UI/ErrorBanner';
 import { useTeamHistory } from '../../hooks/useTeamHistory';
-import { useWebSocketMatches } from '../../hooks/useWebSocketMatches';
 import { useClubsMap } from '../../hooks/useClubs';
+import { useMatches } from '../../app/providers/MatchesProvider';
 
-export const TeamPage: React.FC = () => {
+export const TeamPage = () => {
   const { code } = useParams<{ code: string }>();
-  const { matches, error: wsError } = useWebSocketMatches();
+  const {
+    state: { error: wsError },
+  } = useMatches();
   const { clubsMap, isLoading: clubsLoading, error: clubsError } = useClubsMap();
-  
-  const teamHistory = useTeamHistory(code || '', matches, clubsMap);
-  
+  const teamHistory = useTeamHistory(code || '', clubsMap);
+
   const isLoading = clubsLoading && !teamHistory;
   const hasError = wsError || clubsError;
 
@@ -56,10 +57,7 @@ export const TeamPage: React.FC = () => {
   return (
     <div className="team-page-container">
       <TeamHeader teamHistory={teamHistory} />
-      <MatchList 
-        matches={teamHistory.matches} 
-        teamCode={code || ''} 
-      />
+      <MatchList matches={teamHistory.matches} teamCode={code || ''} />
     </div>
   );
 };

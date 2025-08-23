@@ -1,42 +1,42 @@
 import { useMemo } from 'react';
-import { Match, Club, TeamHistory } from '../lib/types';
 import { sortMatchesByDate } from '../lib/sorting';
 import { APP_CONFIG } from '../lib/constants';
+import { useMatchesState } from '../app/providers/MatchesProvider';
+import { Club } from '../lib/types';
+import { extractGoals } from '../lib/utils';
 
-// Hook to calculate team history and statistics
-export const useTeamHistory = (
-  code: string,
-  matches: Match[],
-  clubsMap: Map<string, Club>
-): TeamHistory | null => {
+// Hook to calculate team history and statistics from global matches state
+export const useTeamHistory = (code: string, clubsMap: Map<string, Club>) => {
+  const { matches } = useMatchesState();
+
   return useMemo(() => {
     if (!code || matches.length === 0) {
       return null;
     }
 
-    // Filters team matches (home or away)
-    const teamMatches = matches.filter(
-      (match) => match.home === code || match.away === code
-    );
-
+    // Filter team matches (home or away)
+    const teamMatches = matches.filter((match) => {
+      return match.home === code || match.away === code;
+    });
+    
     if (teamMatches.length === 0) {
       return null;
     }
 
-    // Sorts by date (most recent first)
+    // Sort by date (most recent first)
     const sortedMatches = sortMatchesByDate(teamMatches);
 
-    // Calculates statistics
+    // Calculate statistics
     let wins = 0;
     let draws = 0;
     let losses = 0;
     let gf = 0;
     let ga = 0;
-
+    
     teamMatches.forEach((match) => {
-      const [homeGoals, awayGoals] = match.score;
+      const [homeGoals, awayGoals] = extractGoals(match.score);
       const isHome = match.home === code;
-
+      
       if (isHome) {
         gf += homeGoals;
         ga += awayGoals;
@@ -51,17 +51,17 @@ export const useTeamHistory = (
         else draws++;
       }
     });
-
+    
     const played = wins + draws + losses;
     const points = wins * APP_CONFIG.POINTS.WIN + draws * APP_CONFIG.POINTS.DRAW;
     const gd = gf - ga;
 
-    // Gets club information
+    // Get club information from clubsMap
     const club = clubsMap.get(code) || {
-      code,
+      code: code,
       name: code, // Fallback to code if name not available
     };
-
+    
     return {
       club,
       matches: sortedMatches,

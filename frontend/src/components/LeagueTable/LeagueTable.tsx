@@ -7,14 +7,16 @@ import { Spinner } from '../UI/Spinner';
 import { ErrorBanner } from '../UI/ErrorBanner';
 import { InfoBanner } from '../UI/InfoBanner';
 import { useStandings } from '../../hooks/useStandings';
-import { useWebSocketMatches } from '../../hooks/useWebSocketMatches';
 import { useClubsMap } from '../../hooks/useClubs';
+import { useMatches } from '../../app/providers/MatchesProvider';
 
-export const LeagueTable: React.FC = () => {
-  const { matches, seasonFinished, error, reconnect } = useWebSocketMatches();
+export const LeagueTable = () => {
+  const {
+    state: { seasonFinished, error, status },
+    reconnect,
+  } = useMatches();
   const { clubsMap, isLoading: clubsLoading, error: clubsError } = useClubsMap();
-  const { tableRows, totalMatches } = useStandings(matches, clubsMap);
-  console.info('totalMatches', totalMatches);
+  const { tableRows, totalMatches } = useStandings(clubsMap);
 
   const isLoading = clubsLoading && tableRows.length === 0;
   const hasError = error || clubsError;
@@ -34,21 +36,18 @@ export const LeagueTable: React.FC = () => {
     <div className="league-table-container">
       <header className="table-header-section">
         <h1 className="table-title">Premier League 2019/2020</h1>
+
+        {seasonFinished && (
+          <InfoBanner
+            message="The 2019/2020 season has finished!"
+            type="success"
+            actionLabel="View Final Table"
+          />
+        )}
       </header>
 
-      {/* Season finished banner */}
-      {seasonFinished && (
-        <InfoBanner
-          message="The 2019/2020 season has finished!"
-          type="success"
-          actionLabel="View Final Table"
-        />
-      )}
-
-      {/* Error banner */}
       <ErrorBanner error={hasError} onRetry={reconnect} />
 
-      {/* Table */}
       <div className="table-wrapper">
         <table className="league-table" role="table" aria-label="Premier League standings table">
           <TableHeader />
@@ -60,14 +59,12 @@ export const LeagueTable: React.FC = () => {
         </table>
       </div>
 
-      {/* Empty state message */}
       {!isLoading && tableRows.length === 0 && (
         <div className="empty-state">
           <p>No matches found. Waiting for WebSocket data...</p>
         </div>
       )}
 
-      {/* Table legend */}
       <div className="table-legend">
         <div className="legend-item">
           <span className="legend-color legend-color--champions"></span>

@@ -1,6 +1,7 @@
 import { format, parseISO } from 'date-fns';
 import { enGB } from 'date-fns/locale';
 import { Score } from './types';
+import { extractGoals } from './utils';
 
 // Date formatting
 export const formatDate = (dateString: string): string => {
@@ -24,7 +25,7 @@ export const formatDateWithDay = (dateString: string): string => {
 
 // Score formatting - handles both direct array and object with ft property
 export const formatScore = (score: Score): string => {
-  const [homeGoals, awayGoals] = Array.isArray(score) ? score : score.ft;
+  const [homeGoals, awayGoals] = extractGoals(score);
   return `${homeGoals}–${awayGoals}`;
 };
 

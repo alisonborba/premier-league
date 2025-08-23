@@ -1,10 +1,13 @@
 import { useMemo } from 'react';
-import { Match } from '../lib/types';
 import { calculateStandings } from '../lib/aggregators';
 import { sortTableRows, addPositions } from '../lib/sorting';
+import { useMatchesState } from '../app/providers/MatchesProvider';
+import { Club } from '../lib/types';
 
-// Hook to calculate standings table
-export const useStandings = (matches: Match[], clubsMap: Map<string, any>) => {
+// Hook to calculate standings table from global matches state
+export const useStandings = (clubsMap: Map<string, Club>) => {
+  const { matches, totalMatches, lastUpdate } = useMatchesState();
+
   return useMemo(() => {
     if (matches.length === 0) {
       return {
@@ -14,18 +17,19 @@ export const useStandings = (matches: Match[], clubsMap: Map<string, any>) => {
       };
     }
 
-    // Calculates table statistics
+    // Calculate table statistics
     const tableRows = calculateStandings(matches, clubsMap);
 
-    // Sorts according to specified rules
+    // Sort according to specified rules
     const sortedRows = sortTableRows(tableRows);
 
-    // Adds positions
+    // Add positions
     const rowsWithPositions = addPositions(sortedRows);
-
+    
     return {
       tableRows: rowsWithPositions,
-      totalMatches: matches.length,
+      totalMatches,
+      lastUpdate,
     };
-  }, [matches, clubsMap]);
+  }, [matches, totalMatches, lastUpdate, clubsMap]);
 };

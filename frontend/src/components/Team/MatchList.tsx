@@ -1,3 +1,5 @@
+/** @format */
+
 import React from 'react';
 import { Match } from '../../lib/types';
 import { MatchRow } from './MatchRow';
@@ -10,11 +12,11 @@ interface MatchListProps {
   className?: string;
 }
 
-export const MatchList: React.FC<MatchListProps> = ({ 
-  matches, 
-  teamCode, 
+export const MatchList: React.FC<MatchListProps> = ({
+  matches,
+  teamCode,
   isLoading = false,
-  className = '' 
+  className = '',
 }) => {
   if (isLoading) {
     return (
@@ -46,7 +48,7 @@ export const MatchList: React.FC<MatchListProps> = ({
             key={`${match.date}-${match.home}-${match.away}`}
             match={match}
             teamCode={teamCode}
-            className={index % 2 === 0 ? 'match-row--even' : 'match-row--odd'}
+            className={''}
           />
         ))}
       </div>

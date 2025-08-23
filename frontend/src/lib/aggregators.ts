@@ -1,5 +1,6 @@
-import { Match, TableRow, Club, Score } from './types';
+import { Match, TableRow, Club } from './types';
 import { APP_CONFIG } from './constants';
+import { extractGoals } from './utils';
 
 // Partial interface for table construction
 interface TableRowPartial {
@@ -15,13 +16,7 @@ interface TableRowPartial {
   form: Array<'W' | 'D' | 'L'>;
 }
 
-// Helper function to extract goals from score (handles both formats)
-const extractGoals = (score: Score): [number, number] => {
-  if (Array.isArray(score)) {
-    return score;
-  }
-  return score.ft;
-};
+
 
 // Generates unique ID for match (for deduplication)
 export const generateMatchId = (match: Match): string => {
@@ -110,6 +105,11 @@ export const calculateStandings = (
   matches: Match[],
   clubsMap: Map<string, Club>
 ): TableRow[] => {
+  // Return empty array if clubsMap is not available
+  if (!clubsMap || clubsMap.size === 0) {
+    return [];
+  }
+
   // Map to store partial statistics for each team
   const teamStatsMap = new Map<string, TableRowPartial>();
 
