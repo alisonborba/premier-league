@@ -50,9 +50,12 @@ export const isValidMatch = (data: Match): boolean => {
   return false;
 };
 
-// Helper function to validate array of matches
-export const isValidMatchesArray = (data: unknown): data is Match[] => {
-  return MatchesArraySchema.safeParse(data).success;
+const upperCaseClubsCodes = (match: Match): Match => {
+  return {
+    ...match,
+    home: match.home.toUpperCase(),
+    away: match.away.toUpperCase(),
+  };
 };
 
 // Helper function to validate WebSocket message
@@ -64,19 +67,9 @@ export const parseWebSocketMessage = (data: Match | Match[]): Match[] | null => 
   // If it's already an array, validate it directly
   if (Array.isArray(data)) {
     console.log('Data is array, validating directly');
-    const result = MatchesArraySchema.safeParse(data);
-    if (result.success) {
-      console.log('Array validation successful:', result.data.length, 'matches');
-      return result.data;
-    }
-    // If validation fails, log but don't reject - try to extract valid matches
-    console.warn('Some matches in array failed validation, attempting to extract valid ones');
-    console.warn('Validation errors:', result.error);
     for (const item of data) {
       if (isValidMatch(item)) {
-        validMatches.push(item);
-      } else {
-        console.warn('Invalid match item:', item);
+        validMatches.push(upperCaseClubsCodes(item));
       }
     }
     console.log('Extracted valid matches:', validMatches.length);
@@ -86,7 +79,7 @@ export const parseWebSocketMessage = (data: Match | Match[]): Match[] | null => 
   // If it's an object, try to parse it
   if (typeof data === 'object' && data !== null) {
     if (isValidMatch(data)) {
-      validMatches.push(data);
+      validMatches.push(upperCaseClubsCodes(data));
       return validMatches;
     }
   }
