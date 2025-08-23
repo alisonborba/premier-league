@@ -1,10 +1,16 @@
 /** @format */
 
 import React from 'react';
-import './styles.scss';
+import { QueryProvider } from './app/providers/QueryProvider';
+import { AppRouter } from './app/router';
+import './styles/globals.css';
 
-const BACKEND_BASE_URL = `http://localhost:65000`;
-
-export const App: React.FunctionComponent = () => {
-  return <div className="message">The FE is running successfully</div>;
+export const App: React.FC = () => {
+  return (
+    <QueryProvider>
+      <div className="app">
+        <AppRouter />
+      </div>
+    </QueryProvider>
+  );
 };

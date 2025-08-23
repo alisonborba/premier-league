@@ -25,7 +25,7 @@ services:
       FRONTEND_PORT: 65001
       BACKEND_PORT: 65000
     volumes:
-      - ./frontend/src:/app/src
+      - ./frontend:/app
     ports:
       - 65001:65001
     restart: on-failure
