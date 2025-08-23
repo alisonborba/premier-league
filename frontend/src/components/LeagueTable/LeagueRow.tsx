@@ -15,7 +15,8 @@ interface LeagueRowProps {
 export const LeagueRow: React.FC<LeagueRowProps> = ({ row, className = '' }) => {
   const getPositionClass = (position: number) => {
     if (position <= 4) return 'table-row--champions-league';
-    if (position <= 6) return 'table-row--europa-league';
+    if (position <= 5) return 'table-row--europa-league';
+    if (position <= 6) return 'table-row--europa-qualifiers';
     if (position >= 18) return 'table-row--relegation';
     return '';
   };

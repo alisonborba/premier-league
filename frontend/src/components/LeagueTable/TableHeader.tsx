@@ -1,17 +1,17 @@
+/** @format */
+
 import React from 'react';
 
 export const TableHeader: React.FC = () => {
   return (
     <thead>
       <tr>
-        <th scope="col" className="table-header table-header--position">
-          Pos
-        </th>
         <th scope="col" className="table-header table-header--club">
           Club
         </th>
+        <th scope="col" className="table-header table-header--club"></th>
         <th scope="col" className="table-header table-header--played">
-          P
+          MP
         </th>
         <th scope="col" className="table-header table-header--wins">
           W
@@ -35,7 +35,7 @@ export const TableHeader: React.FC = () => {
           Pts
         </th>
         <th scope="col" className="table-header table-header--form">
-          Form
+          Last 5
         </th>
       </tr>
     </thead>
