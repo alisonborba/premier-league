@@ -1,3 +1,5 @@
+/** @format */
+
 import React from 'react';
 import { TableHeader } from './TableHeader';
 import { LeagueRow } from './LeagueRow';
@@ -9,9 +11,10 @@ import { useWebSocketMatches } from '../../hooks/useWebSocketMatches';
 import { useClubsMap } from '../../hooks/useClubs';
 
 export const LeagueTable: React.FC = () => {
-  const { matches, seasonFinished, error, status, reconnect } = useWebSocketMatches();
+  const { matches, seasonFinished, error, reconnect } = useWebSocketMatches();
   const { clubsMap, isLoading: clubsLoading, error: clubsError } = useClubsMap();
-  const { tableRows, totalMatches, lastUpdate } = useStandings(matches, clubsMap);
+  const { tableRows, totalMatches } = useStandings(matches, clubsMap);
+  console.info('totalMatches', totalMatches);
 
   const isLoading = clubsLoading && tableRows.length === 0;
   const hasError = error || clubsError;
@@ -31,19 +34,6 @@ export const LeagueTable: React.FC = () => {
     <div className="league-table-container">
       <header className="table-header-section">
         <h1 className="table-title">Premier League 2019/2020</h1>
-        <div className="table-stats">
-          <span className="stat-item">
-            <strong>Matches:</strong> {totalMatches}
-          </span>
-          {lastUpdate && (
-            <span className="stat-item">
-              <strong>Last update:</strong> {lastUpdate.toLocaleTimeString()}
-            </span>
-          )}
-          <span className="stat-item">
-            <strong>WS Status:</strong> {status}
-          </span>
-        </div>
       </header>
 
       {/* Season finished banner */}
@@ -56,10 +46,7 @@ export const LeagueTable: React.FC = () => {
       )}
 
       {/* Error banner */}
-      <ErrorBanner
-        error={hasError}
-        onRetry={reconnect}
-      />
+      <ErrorBanner error={hasError} onRetry={reconnect} />
 
       {/* Table */}
       <div className="table-wrapper">

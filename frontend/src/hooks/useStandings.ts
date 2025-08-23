@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Match, TableRow } from '../lib/types';
+import { Match } from '../lib/types';
 import { calculateStandings } from '../lib/aggregators';
 import { sortTableRows, addPositions } from '../lib/sorting';
 
@@ -16,17 +16,16 @@ export const useStandings = (matches: Match[], clubsMap: Map<string, any>) => {
 
     // Calculates table statistics
     const tableRows = calculateStandings(matches, clubsMap);
-    
+
     // Sorts according to specified rules
     const sortedRows = sortTableRows(tableRows);
-    
+
     // Adds positions
     const rowsWithPositions = addPositions(sortedRows);
-    
+
     return {
       tableRows: rowsWithPositions,
       totalMatches: matches.length,
-      lastUpdate: new Date(),
     };
   }, [matches, clubsMap]);
 };
