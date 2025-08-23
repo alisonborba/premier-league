@@ -1,6 +1,6 @@
 import { Club } from '../lib/types';
 import { ClubsResponseSchema } from '../lib/validators';
-import { APP_CONFIG } from '../lib/constants';
+import { APP_CONFIG, ENGLAND } from '../lib/constants';
 
 // Function to fetch clubs from API
 export const getClubs = async (): Promise<Club[]> => {
@@ -13,8 +13,10 @@ export const getClubs = async (): Promise<Club[]> => {
 
     const data = await response.json();
 
+    const filteredData = data.filter((club: Club) => club.country === ENGLAND);
+
     // Validates response with Zod
-    const validationResult = ClubsResponseSchema.safeParse(data);
+    const validationResult = ClubsResponseSchema.safeParse(filteredData);
 
     if (!validationResult.success) {
       console.error('Invalid clubs data format:', validationResult.error);

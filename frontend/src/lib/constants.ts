@@ -35,3 +35,7 @@ export const SORTING_RULES = {
   // 4. Name (asc) - alphabetical order of name
   PRIORITIES: ['points', 'gd', 'gf', 'name'] as const,
 } as const;
+
+export const PREMIER_LEAGUE = 'Premier League';
+
+export const ENGLAND = 'England';
