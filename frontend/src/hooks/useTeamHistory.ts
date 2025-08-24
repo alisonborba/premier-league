@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import { sortMatchesByDate } from '../lib/sorting';
+import { sortMatchesByDate, sortTableRows, addPositions } from '../lib/sorting';
+import { calculateStandings } from '../lib/aggregators';
 import { APP_CONFIG } from '../lib/constants';
 import { useMatchesState } from '../app/providers/MatchesProvider';
 import { Club } from '../lib/types';
@@ -18,7 +19,7 @@ export const useTeamHistory = (code: string, clubsMap: Map<string, Club>) => {
     const teamMatches = matches.filter((match) => {
       return match.home === code || match.away === code;
     });
-    
+
     if (teamMatches.length === 0) {
       return null;
     }
@@ -32,11 +33,11 @@ export const useTeamHistory = (code: string, clubsMap: Map<string, Club>) => {
     let losses = 0;
     let gf = 0;
     let ga = 0;
-    
+
     teamMatches.forEach((match) => {
       const [homeGoals, awayGoals] = extractGoals(match.score);
       const isHome = match.home === code;
-      
+
       if (isHome) {
         gf += homeGoals;
         ga += awayGoals;
@@ -51,7 +52,7 @@ export const useTeamHistory = (code: string, clubsMap: Map<string, Club>) => {
         else draws++;
       }
     });
-    
+
     const played = wins + draws + losses;
     const points = wins * APP_CONFIG.POINTS.WIN + draws * APP_CONFIG.POINTS.DRAW;
     const gd = gf - ga;
@@ -61,10 +62,19 @@ export const useTeamHistory = (code: string, clubsMap: Map<string, Club>) => {
       code: code,
       name: code, // Fallback to code if name not available
     };
-    
+
+    const position = (() => {
+      const tableRows = calculateStandings(matches, clubsMap);
+      const sortedRows = sortTableRows(tableRows);
+      const rowsWithPositions = addPositions(sortedRows);
+      const teamRow = rowsWithPositions.find(row => row.code === code);
+      return teamRow ? teamRow.position : 2;
+    })
+
     return {
       club,
       matches: sortedMatches,
+      position: position(),
       summary: {
         played,
         wins,
@@ -78,3 +88,23 @@ export const useTeamHistory = (code: string, clubsMap: Map<string, Club>) => {
     };
   }, [code, matches, clubsMap]);
 };
+
+// Hook to get current team position
+// export const useTeamPosition = (code: string, clubsMap: Map<string, Club>) => {
+//   const { matches } = useMatchesState();
+
+//   return useMemo(() => {
+//     return (code: string, clubsMap: Map<string, Club>, matches: any[]) => {
+//       if (!code || !clubsMap || matches.length === 0) {
+//         return null;
+//       }
+
+//       try {
+
+//       } catch (error) {
+//         console.warn('Error calculating team position:', error);
+//         return null;
+//       }
+//     }
+//   }, [code, clubsMap, matches]);
+// };

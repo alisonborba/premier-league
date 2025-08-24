@@ -399,8 +399,22 @@ body {
   font-size: 1.2rem;
 }
 
+.team-stats-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.team-position-header {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+.team-points-header {
+  font-size: 0.75rem;
+}
+
 .team-name-header {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 }
 
 .team-header-content {
