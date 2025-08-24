@@ -1,6 +1,9 @@
+/** @format */
+
 const path = require('path');
 const { DefinePlugin } = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = ({
@@ -22,10 +25,7 @@ module.exports = ({
       publicPath: '/',
     },
     resolve: {
-      extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
-      alias: {
-        '@tanstack/react-query': path.resolve(__dirname, 'node_modules/@tanstack/react-query'),
-      },
+      extensions: ['.ts', '.tsx', '.js', '.json'],
     },
     target: target === 'client' ? 'web' : target === 'server' ? 'node' : undefined,
     module: {
@@ -36,21 +36,20 @@ module.exports = ({
           use: {
             loader: 'babel-loader',
             options: {
-              presets: [
-                '@babel/preset-env',
-                ['@babel/preset-react', { runtime: 'automatic' }],
-                '@babel/preset-typescript',
-              ],
+              presets: ['@babel/preset-env'],
             },
           },
         },
         {
-          test: /\.css$/i,
-          use: ['style-loader', 'css-loader'],
-        },
-        {
           test: /\.s[ac]ss$/i,
-          use: ['style-loader', 'css-loader', 'sass-loader'],
+          use: [
+            // Creates `style` nodes from JS strings
+            'style-loader',
+            // Translates CSS into CommonJS
+            'css-loader',
+            // Compiles Sass to CSS
+            'sass-loader',
+          ],
         },
       ],
     },
@@ -79,6 +78,7 @@ module.exports = ({
       new CleanWebpackPlugin({
         cleanOnceBeforeBuildPatterns: [`${target}/**/*`],
       }),
+      // new WebpackManifestPlugin(),
       new DefinePlugin(
         JSON.stringify({
           'process.env.ENVIRONMENT': mode,

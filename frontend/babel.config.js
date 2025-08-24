@@ -1,12 +1,17 @@
+/** @format */
+
 module.exports = (api) => {
   api.cache(true);
 
   return {
-    presets: [
-      '@babel/preset-env',
-      ['@babel/preset-react', { runtime: 'automatic' }],
-      '@babel/preset-typescript',
+    presets: ['react-app'],
+    plugins: [
+      'babel-plugin-styled-components',
+      ['@babel/plugin-transform-react-jsx'],
+      ['module-resolver', { root: ['.'] }],
+      ['@babel/plugin-proposal-private-property-in-object', { loose: true }],
+      ['@babel/plugin-proposal-private-methods', { loose: true }],
+      ['@babel/plugin-proposal-class-properties', { loose: true }],
     ],
-    plugins: [],
   };
 };
