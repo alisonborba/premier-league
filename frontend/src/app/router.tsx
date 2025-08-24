@@ -1,6 +1,3 @@
-/** @format */
-
-import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { LeagueTable } from '../components/LeagueTable/LeagueTable';
 import { TeamPage } from '../components/Team/TeamPage';

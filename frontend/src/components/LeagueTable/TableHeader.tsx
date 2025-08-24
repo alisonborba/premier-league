@@ -1,8 +1,6 @@
-/** @format */
+interface TableHeaderProps {}
 
-import React from 'react';
-
-export const TableHeader: React.FC = () => {
+export const TableHeader = () => {
   return (
     <thead>
       <tr>
@@ -34,7 +32,7 @@ export const TableHeader: React.FC = () => {
           Pts
         </th>
         <th scope="col" className="table-header table-header--form">
-          Last 5
+          Last Results
         </th>
       </tr>
     </thead>

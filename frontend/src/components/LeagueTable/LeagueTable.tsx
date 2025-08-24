@@ -1,6 +1,3 @@
-/** @format */
-
-import React from 'react';
 import { TableHeader } from './TableHeader';
 import { LeagueRow } from './LeagueRow';
 import { Spinner } from '../UI/Spinner';
@@ -18,7 +15,6 @@ export const LeagueTable = () => {
   } = useMatches();
   const { clubsMap, isLoading: clubsLoading, error: clubsError } = useClubsMap();
   const { tableRows, totalMatches } = useStandings(clubsMap);
-  console.log('totalMatches', totalMatches);
 
   const isLoading = clubsLoading && tableRows.length === 0;
   const hasError = error || clubsError;
@@ -96,19 +92,19 @@ export const Legend = () => {
       <div>
         <h4>Last 5 matches</h4>
         <div className="legend-item">
-          <span className="form-pill form-pill--win">
+          <span className="result-pill result-pill--win">
             <Check size={12} strokeWidth={3} />
           </span>{' '}
           Win
         </div>
         <div className="legend-item">
-          <span className="form-pill form-pill--draw">
+          <span className="result-pill result-pill--draw">
             <Minus size={12} strokeWidth={3} />
           </span>{' '}
           Draw
         </div>
         <div className="legend-item">
-          <span className="form-pill form-pill--loss">
+          <span className="result-pill result-pill--loss">
             <X size={12} strokeWidth={3} />
           </span>{' '}
           Loss

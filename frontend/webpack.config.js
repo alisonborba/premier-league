@@ -1,5 +1,3 @@
-/** @format */
-
 const path = require('path');
 const { DefinePlugin } = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -38,7 +36,11 @@ module.exports = ({
           use: {
             loader: 'babel-loader',
             options: {
-              presets: ['babel-preset-react-app'],
+              presets: [
+                '@babel/preset-env',
+                ['@babel/preset-react', { runtime: 'automatic' }],
+                '@babel/preset-typescript',
+              ],
             },
           },
         },

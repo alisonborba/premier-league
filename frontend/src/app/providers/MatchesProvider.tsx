@@ -1,9 +1,8 @@
-/** @format */
-
 import React, { useEffect, useRef, useState } from 'react';
 import { WebSocketService } from '../../services/websocket';
 import { Match } from '../../lib/types';
 import { WS_STATUS } from '../../lib/constants';
+import { ReactNode } from 'react';
 
 // State interface
 interface MatchesState {
@@ -38,7 +37,7 @@ const initialState: MatchesState = {
 
 // Provider component
 interface MatchesProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export const MatchesProvider = ({ children }: MatchesProviderProps) => {

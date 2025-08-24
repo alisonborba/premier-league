@@ -1,6 +1,3 @@
-/** @format */
-
-import React from 'react';
 import { Match } from '../../lib/types';
 import { formatDate, formatScore } from '../../lib/format';
 import { extractGoals } from '../../lib/utils';
@@ -21,7 +18,7 @@ export const MatchRow = ({ match, teamCode, className = '' }: MatchRowProps) => 
   const isAwayTeamSelected = awayTeamCode === teamCode;
 
   return (
-    <div className={`match-row ${className}`.trim()}>
+    <div className={`match-card ${className}`.trim()}>
       <div className="match-header">
         {match.competition} - {match.round} ({formatDate(match.date)})
       </div>

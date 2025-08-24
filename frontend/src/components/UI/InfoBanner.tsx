@@ -1,21 +1,18 @@
-/** @format */
-
-import React from 'react';
 import { CircleCheck, CircleAlert, Info } from 'lucide-react';
 
 interface InfoBannerProps {
   message: string;
-  type?: 'info' | 'success' | 'warning';
-  onAction?: () => void;
+  type: 'success' | 'warning' | 'info';
   actionLabel?: string;
+  onAction?: () => void;
 }
 
-export const InfoBanner: React.FC<InfoBannerProps> = ({
-  message,
-  type = 'info',
-  onAction,
-  actionLabel,
-}) => {
+export const InfoBanner = ({ 
+  message, 
+  type, 
+  actionLabel, 
+  onAction 
+}: InfoBannerProps) => {
   const getIcon = () => {
     switch (type) {
       case 'success':

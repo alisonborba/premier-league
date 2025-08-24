@@ -1,26 +1,15 @@
-/** @format */
-
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { TableRow } from '../../lib/types';
-import { FormPills } from './FormPills';
+import { LastResults } from './LastResults';
 import { formatGoalDifference } from '../../lib/format';
-import { getClubImage } from '../../lib/utils';
+import { getClubImage, getPositionClass } from '../../lib/utils';
 
 interface LeagueRowProps {
   row: TableRow & { position: number };
   className?: string;
 }
 
-export const LeagueRow: React.FC<LeagueRowProps> = ({ row, className = '' }) => {
-  const getPositionClass = (position: number) => {
-    if (position <= 4) return 'table-row--champions-league';
-    if (position <= 5) return 'table-row--europa-league';
-    if (position <= 6) return 'table-row--europa-qualifiers';
-    if (position >= 18) return 'table-row--relegation';
-    return '';
-  };
-
+export const LeagueRow = ({ row, className = '' }: LeagueRowProps) => {
   return (
     <tr className={`table-row ${getPositionClass(row.position)} ${className}`.trim()}>
       <td className="table-cell table-cell--club">
@@ -45,7 +34,7 @@ export const LeagueRow: React.FC<LeagueRowProps> = ({ row, className = '' }) => 
         <strong>{row.points}</strong>
       </td>
       <td className="table-cell table-cell--form">
-        <FormPills form={row.form} />
+        <LastResults results={row.form} />
       </td>
     </tr>
   );

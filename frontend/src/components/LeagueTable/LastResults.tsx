@@ -1,28 +1,25 @@
-/** @format */
-
-import React from 'react';
 import { Check, Minus, X } from 'lucide-react';
 
-interface FormPillsProps {
-  form: Array<'W' | 'D' | 'L'>;
+interface LastResultsProps {
+  results: Array<'W' | 'D' | 'L'>;
   className?: string;
 }
 
-export const FormPills: React.FC<FormPillsProps> = ({ form, className = '' }) => {
+export const LastResults = ({ results, className = '' }: LastResultsProps) => {
   const getResultClass = (result: 'W' | 'D' | 'L') => {
     switch (result) {
       case 'W':
-        return 'form-pill--win';
+        return 'result-pill--win';
       case 'D':
-        return 'form-pill--draw';
+        return 'result-pill--draw';
       case 'L':
-        return 'form-pill--loss';
+        return 'result-pill--loss';
       default:
         return '';
     }
   };
 
-  const getResult = (result: 'W' | 'D' | 'L') => {
+  const getResultIcon = (result: 'W' | 'D' | 'L') => {
     switch (result) {
       case 'W':
         return <Check size={12} strokeWidth={3} />;
@@ -36,10 +33,10 @@ export const FormPills: React.FC<FormPillsProps> = ({ form, className = '' }) =>
   };
 
   return (
-    <div className={`form-pills ${className}`.trim()}>
-      {form.map((result, index) => (
-        <span key={index} className={`form-pill ${getResultClass(result)}`}>
-          {getResult(result)}
+    <div className={`last-results ${className}`.trim()}>
+      {results.map((result, index) => (
+        <span key={index} className={`result-pill ${getResultClass(result)}`}>
+          {getResultIcon(result)}
         </span>
       ))}
     </div>

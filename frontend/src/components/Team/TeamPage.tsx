@@ -1,6 +1,3 @@
-/** @format */
-
-import React from 'react';
 import { useParams } from 'react-router-dom';
 import { TeamHeader } from './TeamHeader';
 import { MatchList } from './MatchList';

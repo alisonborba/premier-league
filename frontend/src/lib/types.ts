@@ -45,7 +45,7 @@ export interface StandingsState {
 export interface TeamHistory {
   club: Club;
   matches: Match[];
-  position: number;
+  position: number | null;
   summary: {
     played: number;
     wins: number;

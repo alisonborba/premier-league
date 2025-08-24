@@ -1,6 +1,3 @@
-/** @format */
-
-import React from 'react';
 import { Match } from '../../lib/types';
 import { MatchRow } from './MatchRow';
 import { Spinner } from '../UI/Spinner';
@@ -12,12 +9,12 @@ interface MatchListProps {
   className?: string;
 }
 
-export const MatchList: React.FC<MatchListProps> = ({
+export const MatchList = ({
   matches,
   teamCode,
   isLoading = false,
   className = '',
-}) => {
+}: MatchListProps) => {
   if (isLoading) {
     return (
       <div className={`match-list ${className}`.trim()}>

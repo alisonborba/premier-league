@@ -1,16 +1,14 @@
-import React from 'react';
-
 interface ErrorBannerProps {
   error: Error | null;
   onRetry?: () => void;
   onDismiss?: () => void;
 }
 
-export const ErrorBanner: React.FC<ErrorBannerProps> = ({ 
+export const ErrorBanner = ({ 
   error, 
   onRetry, 
   onDismiss 
-}) => {
+}: ErrorBannerProps) => {
   if (!error) return null;
 
   return (
