@@ -287,7 +287,6 @@ body {
    ========================================================================== */
 
 .table-header-section {
-  margin-bottom: var(--spacing-xl);
   text-align: center;
 }
 
