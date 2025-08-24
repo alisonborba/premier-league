@@ -1,16 +1,16 @@
 import { Match } from '../../lib/types';
-import { formatDate, formatScore } from '../../lib/format';
+import { formatDate } from '../../lib/format';
 import { extractGoals } from '../../lib/utils';
 import { getClubImage, getClubName } from '../../lib/utils';
 import { ChevronLeft } from 'lucide-react';
 
-interface MatchRowProps {
+interface MatchCardProps {
   match: Match;
   teamCode: string;
   className?: string;
 }
 
-export const MatchRow = ({ match, teamCode, className = '' }: MatchRowProps) => {
+export const MatchCard = ({ match, teamCode, className = '' }: MatchCardProps) => {
   const [homeGoals, awayGoals] = extractGoals(match.score);
   const homeTeamCode = match.home;
   const awayTeamCode = match.away;

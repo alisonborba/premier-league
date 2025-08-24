@@ -1,5 +1,3 @@
-interface TableHeaderProps {}
-
 export const TableHeader = () => {
   return (
     <thead>

@@ -1,5 +1,5 @@
 import { Match } from '../../lib/types';
-import { MatchRow } from './MatchRow';
+import { MatchCard } from './MatchCard';
 import { Spinner } from '../UI/Spinner';
 
 interface MatchListProps {
@@ -41,7 +41,7 @@ export const MatchList = ({
       <h3 className="match-list-title">Match History ({matches.length})</h3>
       <div className="matches-container">
         {matches.map((match, index) => (
-          <MatchRow
+          <MatchCard
             key={`${match.date}-${match.home}-${match.away}`}
             match={match}
             teamCode={teamCode}
